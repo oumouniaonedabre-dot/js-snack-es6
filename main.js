@@ -1,3 +1,4 @@
+// Snack 1
 const bikes = [
   { nome: 'Bianchi', peso: 7.2 },
   { nome: 'Trek', peso: 6.8 },
@@ -5,17 +6,34 @@ const bikes = [
   { nome: 'Cannondale', peso: 6.5 }
 ];
 
-let minWeight = bikes[0].peso;
-let lightestBikeName = bikes[0].nome;
-
-for (let i = 1; i < bikes.length; i++) {
-  if (bikes[i].peso < minWeight) {
-    minWeight = bikes[i].peso;
-    lightestBikeName = bikes[i].nome;
-  }
-}
+const lightestBike = bikes.reduce((min, bike) => bike.peso < min.peso ? bike : min);
 
 document.getElementById('bike-result').innerHTML = `
-  <p>La bici più leggera è <strong>${lightestBikeName}</strong></p>
-  <p>Peso: ${minWeight} kg</p>
+  <p>La bici più leggera è <strong>${lightestBike.nome}</strong></p>
+  <p>Peso: ${lightestBike.peso} kg</p>
 `;
+
+
+// Snack 2
+const teams = [
+  { nome: 'Milan', punti: 0, falli: 0 },
+  { nome: 'Inter', punti: 0, falli: 0 },
+  { nome: 'Juventus', punti: 0, falli: 0 },
+  { nome: 'Roma', punti: 0, falli: 0 }
+];
+
+const teamsList = document.getElementById('teams-list');
+const foulsList = document.getElementById('fouls-list');
+
+const bonusArray = teams.map(team => {
+  team.punti = Math.floor(Math.random() * 100);
+  team.falli = Math.floor(Math.random() * 50);
+
+  teamsList.innerHTML += `<li><strong>${team.nome}</strong>  Punti: ${team.punti}, Falli: ${team.falli}</li>`;
+
+  return { nome: team.nome, falli: team.falli };
+});
+
+bonusArray.forEach(team => {
+  foulsList.innerHTML += `<li>${team.nome}  Falli subiti: ${team.falli}</li>`;
+});
